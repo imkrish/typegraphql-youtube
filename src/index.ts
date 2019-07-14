@@ -1,13 +1,13 @@
 import "reflect-metadata";
 import { buildSchema } from "type-graphql";
 import { ApolloServer } from "apollo-server";
-import {BasicResolver} from "./basic.resolver";
+import {TodoResolver} from "./todo/todo.resolver";
 
 const PORT = 4000;
 
 const bootstrap = async () => {
   const schema = await buildSchema({
-    resolvers: [BasicResolver],
+    resolvers: [TodoResolver],
     emitSchemaFile: true
   });
 
