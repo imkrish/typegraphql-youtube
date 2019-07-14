@@ -13,4 +13,11 @@ export class TodoResolver {
   ): Todo[] {
     return this.todoService.getTodos(skip, take);
   }
+
+  @Query(returns => Todo)
+  getTodo(
+      @Arg('id') id: string
+  ): Todo | undefined {
+      return this.todoService.getTodoById(id)
+  }
 }

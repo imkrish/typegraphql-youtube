@@ -34,9 +34,13 @@ export class TodoService {
     }
   ];
 
-  getTodos(skip: number, take: number) {
+  getTodos(skip: number, take: number): Todo[] {
     const usedSkip = skip || 0;
     const usedTake = take ? take + usedSkip : undefined;
     return this.todos.slice(usedSkip, usedTake);
+  }
+
+  getTodoById(id: string): Todo | undefined {
+    return this.todos.find(todo => todo.id === id);
   }
 }
