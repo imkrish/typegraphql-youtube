@@ -1,4 +1,6 @@
 import { Todo } from "./todo.model";
+import { NewTodoInput } from "./todo.input";
+import { TodoUtil } from "./todo.util";
 
 export class TodoService {
   todos: Todo[] = [
@@ -42,5 +44,11 @@ export class TodoService {
 
   getTodoById(id: string): Todo | undefined {
     return this.todos.find(todo => todo.id === id);
+  }
+
+  createTodo(newTodo: NewTodoInput): Todo {
+    const todo = TodoUtil.getNewTodo(newTodo.todo);
+    this.todos.push(todo);
+    return todo;
   }
 }

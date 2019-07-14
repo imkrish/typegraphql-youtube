@@ -1,6 +1,7 @@
-import { Arg, Query, Resolver } from "type-graphql";
+import {Arg, Mutation, Query, Resolver} from "type-graphql";
 import { Todo } from "./todo.model";
 import { TodoService } from "./todo.service";
+import {NewTodoInput} from "./todo.input";
 
 @Resolver()
 export class TodoResolver {
@@ -19,5 +20,10 @@ export class TodoResolver {
       @Arg('id') id: string
   ): Todo | undefined {
       return this.todoService.getTodoById(id)
+  }
+
+  @Mutation(returns => Todo)
+  createTodo(@Arg('newTodo') newTodo: NewTodoInput): Todo {
+    return this.todoService.createTodo(newTodo)
   }
 }
