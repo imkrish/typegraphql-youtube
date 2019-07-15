@@ -1,7 +1,7 @@
 import { Arg, Mutation, Query, Resolver } from "type-graphql";
-import { Todo } from "./todo.model";
 import { TodoService } from "./todo.service";
-import { NewTodoInput } from "./todo.input";
+import { NewTodoInput, UpdatedTodoInput } from "./todo.input";
+import { Todo } from "./todo.model";
 
 @Resolver()
 export class TodoResolver {
@@ -26,7 +26,15 @@ export class TodoResolver {
   }
 
   @Mutation()
-  deleteTodo(@Arg('id') id: string): boolean {
-    return this.todoService.deleteTodo(id)
+  deleteTodo(@Arg("id") id: string): boolean {
+    return this.todoService.deleteTodo(id);
+  }
+
+  @Mutation(returns => Todo)
+  updateTodo(
+    @Arg("id") id: string,
+    @Arg("updatedTodo") updatedTodo: UpdatedTodoInput
+  ): Todo | undefined {
+    return this.todoService.updateTodo(id, updatedTodo);
   }
 }

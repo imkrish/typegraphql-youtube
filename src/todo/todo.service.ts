@@ -1,7 +1,7 @@
-import { Todo } from "./todo.model";
-import { NewTodoInput } from "./todo.input";
+import { NewTodoInput, UpdatedTodoInput } from "./todo.input";
 import { TodoUtil } from "./todo.util";
 import { v4 } from "uuid";
+import { Todo } from "./todo.model";
 
 export class TodoService {
   todos: Todo[] = [
@@ -60,5 +60,20 @@ export class TodoService {
     });
     const lengthAfter = this.todos.length;
     return lengthBefore !== lengthAfter;
+  }
+
+  updateTodo(id: string, updatedTodo: UpdatedTodoInput): Todo | undefined {
+    const foundIdx = this.todos.findIndex(todo => todo.id == id);
+    if (foundIdx === -1) {
+      return;
+    }
+    const foundTodo = this.todos[foundIdx];
+    const todo = { ...foundTodo, ...updatedTodo };
+    this.todos = [
+      ...this.todos.slice(0, foundIdx),
+      todo,
+      ...this.todos.slice(foundIdx + 1)
+    ];
+    return todo;
   }
 }
