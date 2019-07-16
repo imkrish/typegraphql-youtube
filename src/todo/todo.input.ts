@@ -1,5 +1,5 @@
 import { Field, InputType } from "type-graphql";
-import { Todo } from "./todo.model";
+import { Todo } from "./todo.type";
 
 @InputType()
 export class NewTodoInput implements Partial<Todo> {

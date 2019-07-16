@@ -1,41 +1,9 @@
 import { NewTodoInput, UpdatedTodoInput } from "./todo.input";
 import { TodoUtil } from "./todo.util";
-import { v4 } from "uuid";
-import { Todo } from "./todo.model";
+import { Todo } from "./todo.type";
 
 export class TodoService {
-  todos: Todo[] = [
-    {
-      id: v4(),
-      todo: "Sleep",
-      completed: false,
-      createdTimestamp: Date.now()
-    },
-    {
-      id: v4(),
-      todo: "Take a shower",
-      completed: false,
-      createdTimestamp: Date.now()
-    },
-    {
-      id: v4(),
-      todo: "Eat",
-      completed: false,
-      createdTimestamp: Date.now()
-    },
-    {
-      id: v4(),
-      todo: "Poo",
-      completed: false,
-      createdTimestamp: Date.now()
-    },
-    {
-      id: v4(),
-      todo: "Pee",
-      completed: false,
-      createdTimestamp: Date.now()
-    }
-  ];
+  todos: Todo[] = [];
 
   getTodos(skip: number, take: number): Todo[] {
     const usedSkip = skip || 0;
@@ -44,7 +12,7 @@ export class TodoService {
   }
 
   getTodoById(id: string): Todo | undefined {
-    return this.todos.find(todo => todo.id === id);
+    return this.todos.find(todo => todo._id === id);
   }
 
   createTodo(newTodo: NewTodoInput): Todo {
@@ -56,14 +24,14 @@ export class TodoService {
   deleteTodo(id: string): boolean {
     const lengthBefore = this.todos.length;
     this.todos = this.todos.filter(todo => {
-      return todo.id !== id;
+      return todo._id !== id;
     });
     const lengthAfter = this.todos.length;
     return lengthBefore !== lengthAfter;
   }
 
   updateTodo(id: string, updatedTodo: UpdatedTodoInput): Todo | undefined {
-    const foundIdx = this.todos.findIndex(todo => todo.id == id);
+    const foundIdx = this.todos.findIndex(todo => todo._id == id);
     if (foundIdx === -1) {
       return;
     }

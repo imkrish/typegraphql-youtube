@@ -1,12 +1,13 @@
-import { Todo } from "./todo.model";
+import { Todo } from "./todo.type";
 
 export class TodoUtil {
   static getNewTodo(todo: string): Todo {
     return {
-      id: Date.now().toString(),
+      _id: Date.now().toString(),
       todo,
       completed: false,
-      createdTimestamp: Date.now()
+      createdAt: new Date(),
+      updatedAt: new Date()
     };
   }
 }

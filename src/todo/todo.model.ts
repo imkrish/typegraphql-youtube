@@ -1,16 +1,14 @@
-import { Field, ObjectType } from "type-graphql";
+import { Schema, model, Document } from "mongoose";
+import { Todo } from "./todo.type";
 
-@ObjectType()
-export class Todo {
-  @Field()
-  id!: string;
+export interface TodoDocument extends Todo, Document {}
 
-  @Field()
-  todo!: string;
+const TodoSchema = new Schema(
+  {
+    todo: { type: String, required: true },
+    completed: { type: Boolean, required: true }
+  },
+  { timestamps: true }
+);
 
-  @Field()
-  createdTimestamp!: number;
-
-  @Field()
-  completed!: boolean;
-}
+export const TodoModel = model<TodoDocument>('Todo', TodoSchema);

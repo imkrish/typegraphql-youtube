@@ -1,7 +1,7 @@
 import { Arg, Mutation, Query, Resolver } from "type-graphql";
 import { TodoService } from "./todo.service";
 import { NewTodoInput, UpdatedTodoInput } from "./todo.input";
-import { Todo } from "./todo.model";
+import { Todo } from "./todo.type";
 
 @Resolver()
 export class TodoResolver {
