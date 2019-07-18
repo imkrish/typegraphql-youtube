@@ -3,7 +3,9 @@ import { Model } from "mongoose";
 import { TodoDocument } from "./todo.model";
 import { Todo } from "./todo.type";
 import { NewTodoInput, UpdatedTodoInput } from "./todo.input";
+import {Service} from "typedi";
 
+@Service()
 export class TodoRepo {
   private todoModel: Model<TodoDocument>;
 

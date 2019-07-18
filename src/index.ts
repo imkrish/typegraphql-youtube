@@ -1,15 +1,17 @@
 import "reflect-metadata";
 import { buildSchema } from "type-graphql";
 import { ApolloServer } from "apollo-server";
-import {TodoResolver} from "./todo/todo.resolver";
-import {MongoDb} from "./db/mongo.db";
+import { TodoResolver } from "./todo/todo.resolver";
+import { MongoDb } from "./db/mongo.db";
+import { Container } from "typedi";
 
 const PORT = 4000;
 
 const bootstrap = async () => {
   const schema = await buildSchema({
     resolvers: [TodoResolver],
-    emitSchemaFile: true
+    emitSchemaFile: true,
+    container: Container
   });
 
   const server = new ApolloServer({

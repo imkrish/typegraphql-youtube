@@ -5,7 +5,7 @@ import { Todo } from "./todo.type";
 
 @Resolver()
 export class TodoResolver {
-  constructor(private todoService = new TodoService()) {}
+  constructor(private todoService: TodoService) {}
 
   @Query(returns => [Todo])
   getTodos(
