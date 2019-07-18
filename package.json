@@ -8,13 +8,11 @@
     "graphql": "^14.4.2",
     "mongoose": "^5.6.4",
     "reflect-metadata": "^0.1.13",
-    "type-graphql": "^0.17.4",
-    "uuid": "^3.3.2"
+    "type-graphql": "^0.17.4"
   },
   "devDependencies": {
     "@types/graphql": "^14.2.2",
     "@types/mongoose": "^5.5.8",
-    "@types/uuid": "^3.4.5",
     "ts-node": "^8.3.0",
     "typescript": "^3.5.3"
   }

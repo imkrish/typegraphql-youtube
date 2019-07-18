@@ -1,47 +1,28 @@
 import { NewTodoInput, UpdatedTodoInput } from "./todo.input";
-import { TodoUtil } from "./todo.util";
 import { Todo } from "./todo.type";
+import {TodoRepo} from "./todo.repo";
 
 export class TodoService {
-  todos: Todo[] = [];
+  constructor(private todoRepo = new TodoRepo()) {}
 
-  getTodos(skip: number, take: number): Todo[] {
-    const usedSkip = skip || 0;
-    const usedTake = take ? take + usedSkip : undefined;
-    return this.todos.slice(usedSkip, usedTake);
+  getTodos(skip?: number, take?: number): Promise<Todo[]> {
+    return this.todoRepo.find(skip, take)
   }
 
-  getTodoById(id: string): Todo | undefined {
-    return this.todos.find(todo => todo._id === id);
+  getTodoById(id: string): Promise<Todo | null> {
+    return this.todoRepo.findById(id)
   }
 
-  createTodo(newTodo: NewTodoInput): Todo {
-    const todo = TodoUtil.getNewTodo(newTodo.todo);
-    this.todos = this.todos.concat(todo);
-    return todo;
+  createTodo(newTodo: NewTodoInput): Promise<Todo> {
+    return this.todoRepo.create(newTodo)
   }
 
-  deleteTodo(id: string): boolean {
-    const lengthBefore = this.todos.length;
-    this.todos = this.todos.filter(todo => {
-      return todo._id !== id;
-    });
-    const lengthAfter = this.todos.length;
-    return lengthBefore !== lengthAfter;
+  async deleteTodo(id: string): Promise<boolean> {
+    const deletedTodo = await this.todoRepo.deleteById(id)
+    return Boolean(deletedTodo)
   }
 
-  updateTodo(id: string, updatedTodo: UpdatedTodoInput): Todo | undefined {
-    const foundIdx = this.todos.findIndex(todo => todo._id == id);
-    if (foundIdx === -1) {
-      return;
-    }
-    const foundTodo = this.todos[foundIdx];
-    const todo = { ...foundTodo, ...updatedTodo };
-    this.todos = [
-      ...this.todos.slice(0, foundIdx),
-      todo,
-      ...this.todos.slice(foundIdx + 1)
-    ];
-    return todo;
+  updateTodo(id: string, updatedTodo: UpdatedTodoInput): Promise<Todo | null> {
+    return this.todoRepo.update(id, updatedTodo)
   }
 }

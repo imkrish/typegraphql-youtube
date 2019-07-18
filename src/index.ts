@@ -2,8 +2,7 @@ import "reflect-metadata";
 import { buildSchema } from "type-graphql";
 import { ApolloServer } from "apollo-server";
 import {TodoResolver} from "./todo/todo.resolver";
-import mongoose from 'mongoose';
-import {TodoModel} from "./todo/todo.model";
+import {MongoDb} from "./db/mongo.db";
 
 const PORT = 4000;
 
@@ -18,14 +17,9 @@ const bootstrap = async () => {
     playground: true
   });
 
-  await mongoose.connect('mongodb://localhost:27017/todo', { useNewUrlParser: true });
+  await MongoDb.connect();
 
   await server.listen(PORT);
-
-  await TodoModel.create({
-    todo: 'Take a shower',
-    completed: true
-  });
 
   console.log("Server is started on port", PORT);
 };

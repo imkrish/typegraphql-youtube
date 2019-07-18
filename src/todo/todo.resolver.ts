@@ -11,22 +11,22 @@ export class TodoResolver {
   getTodos(
     @Arg("skip", { nullable: true }) skip: number,
     @Arg("take", { nullable: true }) take: number
-  ): Todo[] {
+  ): Promise<Todo[]> {
     return this.todoService.getTodos(skip, take);
   }
 
   @Query(returns => Todo)
-  getTodo(@Arg("id") id: string): Todo | undefined {
+  getTodo(@Arg("id") id: string): Promise<Todo | null> {
     return this.todoService.getTodoById(id);
   }
 
   @Mutation(returns => Todo)
-  createTodo(@Arg("newTodo") newTodo: NewTodoInput): Todo {
+  createTodo(@Arg("newTodo") newTodo: NewTodoInput): Promise<Todo> {
     return this.todoService.createTodo(newTodo);
   }
 
-  @Mutation()
-  deleteTodo(@Arg("id") id: string): boolean {
+  @Mutation(returns => Boolean)
+  deleteTodo(@Arg("id") id: string): Promise<boolean> {
     return this.todoService.deleteTodo(id);
   }
 
@@ -34,7 +34,7 @@ export class TodoResolver {
   updateTodo(
     @Arg("id") id: string,
     @Arg("updatedTodo") updatedTodo: UpdatedTodoInput
-  ): Todo | undefined {
+  ): Promise<Todo | null> {
     return this.todoService.updateTodo(id, updatedTodo);
   }
 }
