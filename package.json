@@ -4,7 +4,8 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "npx ts-node src/index.ts"
+    "start": "npx ts-node src/index.ts",
+    "test": "npx jest --watch"
   },
   "dependencies": {
     "apollo-server": "^2.6.9",
@@ -16,7 +17,10 @@
   },
   "devDependencies": {
     "@types/graphql": "^14.2.2",
+    "@types/jest": "^24.0.15",
     "@types/mongoose": "^5.5.8",
+    "jest": "^24.8.0",
+    "ts-jest": "^24.0.2",
     "ts-node": "^8.3.0",
     "typescript": "^3.5.3"
   }
