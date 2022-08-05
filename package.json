@@ -10,7 +10,7 @@
   "dependencies": {
     "apollo-server": "^2.6.9",
     "graphql": "^14.4.2",
-    "mongoose": "^5.6.4",
+    "mongoose": "^5.7.5",
     "ramda": "^0.26.1",
     "reflect-metadata": "^0.1.13",
     "type-graphql": "^0.17.4",
